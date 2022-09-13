@@ -1,0 +1,198 @@
+Variables:
+
+bu = 
+buzer =
+bwl = 
+btries = 0
+bbet = 0
+b1 =
+b2 =
+b3 =
+b4 =
+bcards = 3
+bearn = 0
+pressed1 =
+pressed2 = 
+pressed3 =
+pressed4 =
+
+________________
+
+Trigger: (prefix) 
+Scripting Language: BDSCRIPT2
+
+$c[Currently it’s globally, if you wish to switch it to locally replace all of the ¢setVars to €setUserVar in the ¢onInteraction code]
+
+$nomention
+$onlyIf[$guildID!=;]
+$ignoreTriggerCase
+$if[$isSlash==false]
+$var[amount;$message[2]]
+$else
+$var[amount;$message[bet]]
+$endif
+$var[num;$var[amount]] $c[ input (k = 000; m = 000,000; b = 000,000,000; t = 000,000,000,000) ]
+$if[$checkContains[$var[num];.]]$textSplit[$replaceText[$replaceText[$replaceText[$replaceText[$toLowercase[$var[num]];k;];m;];b;];t;];.]$var[num;$replaceText[$var[num];.$splitText[2];]]$var[add;$splitText[2]]$endif
+$var[num;$replaceText[$replaceText[$replaceText[$replaceText[$toLowercase[$var[num]];k;$var[add]$cropText[000;$sub[3;$charCount[$var[add]]];]];m;$var[add]$cropText[000000;$sub[6;$charCount[$var[add]]];]];b;$var[add]$cropText[000000000;$sub[9;$charCount[$var[add]]];]];t;$var[add]$cropText[000000000000;$sub[12;$charCount[$var[add]]];]]]
+
+$if[$or[$checkContains[$toLowercase[$message[1]];scratch]==true;$isSlash==true]==true]
+$if[$isNumber[$var[num]]==false]
+$reply
+$ephemeral
+You have to bet actual coins don’t try and break me.
+$elseif[$getVar[Money;$authorID]<$var[num]]
+$reply
+$ephemeral
+You only have **⏣ $numberSeparator[$getVar[Money;$authorID];,]**, dont try and lie to me hoe.
+$elseif[$var[num]==]
+$reply
+$ephemeral
+You need to bet something, dummy!
+$elseif[$var[num]>250000]
+$reply
+$ephemeral
+You can't bet more than **⏣ 250,000** at once, sorry not sorry
+$elseif[$var[num]<1500]
+$reply
+$ephemeral
+You can't bet less than **⏣ 1,500**, sorry not sorry
+$else
+
+$embedSuppressErrors[$randomText[Too spicy, take a breather;Woah now, slow it down;Hold your horses...;Woah! Calm down Jamal];;#3f51b5;;;]
+$globalCooldown[2s;You can run this command again in **%time%**
+The default cooldown is `30s`, $randomText[can't you wait?;calm down Jamal pull out the 9.;so impatient smh.;tryna spam, eh?]]
+
+$setUserVar[pressed1;]
+$setUserVar[pressed2;]
+$setUserVar[pressed3;]
+$setUserVar[pressed4;]
+$color[$getVar[color]]
+$author[$username’s Scratch-Off]
+$description[
+You can scratch **3** more fields 
+Your bet: **⏣ $numberSeparator[$var[num];,]**]
+$addTimestamp
+$addButton[no;scratch1-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch2-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch3-$authorID;ㅤ;secondary;no;]
+$addButton[yes;scratch4-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch5-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch6-$authorID;ㅤ;secondary;no;]
+$addButton[yes;scratch7-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch8-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch9-$authorID;ㅤ;secondary;no;]
+$addButton[yes;scratch10-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch11-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch12-$authorID;ㅤ;secondary;no;]
+$addButton[yes;scratch13-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch14-$authorID;ㅤ;secondary;no;]
+$addButton[no;scratch15-$authorID;ㅤ;secondary;no;]
+$setUserVar[bu;;$authorID]
+$setUserVar[buser;$messageID;$authorID]
+$setUserVar[btries;0;$authorID]
+$setUserVar[bwl;scratch$random[1;3]-$authorID / scratch$random[4;7]-$authorID / scratch$random[8;11]-$authorID / scratch$random[12;15]-$authorID;$authorID]
+$setUserVar[b1;scratch$random[1;3]-$authorID;$authorID]
+$setUserVar[b2;scratch$random[4;7]-$authorID;$authorID]
+$setUserVar[b3;scratch$random[8;11]-$authorID;$authorID]
+$setUserVar[b4;scratch$random[12;15]-$authorID;$authorID]
+$setUserVar[bbet;$var[num];$authorID]
+$setUserVar[bearn;-$var[num];$authorID]
+$setUserVar[bcards;3;$authorID]
+ 
+ $endif
+ $endif
+
+Trigger: $onInteraction
+Scripting Langiage: BDSCRIPT2
+
+$nomention
+$if[$checkContains[$customID;scratch]==true]
+$if[$getUserVar[btries;$authorID]!=3]
+$if[$checkContains[$getUserVar[bwl;$authorID];$customID]==false]
+$setUserVar[pressed$sum[$getUserVar[btries;$authorID];1];$customID;$authorID]
+$setUserVar[bcards;$sub[$getUserVar[bcards;$authorID];1];$authorID]
+$setUserVar[btries;$sum[$getUserVar[btries;$authorID];1];$authorID]
+$setUserVar[bearn;$sum[$getUserVar[bearn;$authorID];$calculate[$getUserVar[bbet;$authorID]-$getUserVar[bbet;$authorID]/4]];$authorID]
+$editButton[$customID;;success;yes;$optOff[$randomText[🏆;🏅]]]
+$endif
+$endif
+$if[$getUserVar[btries;$authorID]!=3]
+$if[$checkContains[$getUserVar[bwl;$authorID];$customID]==true]
+$setUserVar[bcards;$sub[$getUserVar[bcards;$authorID];1];$authorID]
+$setUserVar[btries;$sum[$getUserVar[btries;$authorID];1];$authorID]
+$editButton[$customID;ㅤ;danger;yes;;]
+$endif
+$endif
+$suppressErrors
+
+$color[$getVar[color]]
+$author[$username’s Scratch-Off]
+$addTimestamp
+$description[
+You can scratch **$getUserVar[bcards;$authorID]** more fields
+Your bet: **⏣ $numberSeparator[$getUserVar[bbet;$authorID];,]**
+You $if[$checkContains[$replaceText[$replaceText[$checkCondition[$getUserVar[btries]>=3];false;0;-1];true;$getUserVar[bearn];-1];-]==false]earned$elseloss$endif: **⏣ $numberSeparator[$replaceText[$replaceText[$replaceText[$checkCondition[$getUserVar[btries]>=3];false;0;-1];true;$getUserVar[bearn];-1];-;;-1];,]**]
+$if[$getUserVar[btries;$authorID]==3]
+$editButton[scratch1-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch2-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch3-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch4-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch5-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch6-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch7-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch8-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch9-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch10-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch11-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch12-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch13-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch14-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+$editButton[scratch15-$authorID;;secondary;yes;$optOff[$randomText[🏆;🏅]]]
+
+$if[$getUserVar[pressed1;$authorID]!=]
+$editButton[$getUserVar[pressed1;$authorID];;success;yes;$optOff[$randomText[🏆;🏅]]]
+$endif
+$if[$getUserVar[pressed2;$authorID]!=]
+$editButton[$getUserVar[pressed2;$authorID];;success;yes;$optOff[$randomText[🏆;🏅]]]
+$endif
+$if[$getUserVar[pressed3;$authorID]!=]
+$editButton[$getUserVar[pressed3;$authorID];;success;yes;$optOff[$randomText[🏆;🏅]]]
+$endif
+$if[$getUserVar[pressed4;$authorID]!=]
+$editButton[$getUserVar[pressed4;$authorID];;success;yes;$optOff[$randomText[🏆;🏅]]]
+$endif
+
+$editButton[$getUserVar[b4;$authorID];ㅤ;danger;yes;;]
+$editButton[$getUserVar[b3;$authorID];ㅤ;danger;yes;;]
+$editButton[$getUserVar[b2;$authorID];ㅤ;danger;yes;;]
+$editButton[$getUserVar[b1;$authorID];ㅤ;danger;yes;;]
+
+$if[$customID==$getUserVar[b1;$authorID]]
+$editButton[$customID;ㅤ;danger;yes;;]
+$else
+$editButton[$customID;;success;yes;$optOff[$randomText[🏆;🏅]]]
+$endif
+
+$if[$customID==$getUserVar[b2;$authorID]]
+$editButton[$customID;ㅤ;danger;yes;;]
+$else
+$editButton[$customID;;success;yes;$optOff[$randomText[🏆;🏅]]]
+$endif
+
+$if[$customID==$getUserVar[b3;$authorID]]
+$editButton[$customID;ㅤ;danger;yes;;]
+$else
+$editButton[$customID;;success;yes;$optOff[$randomText[🏆;🏅]]]
+$endif
+
+$if[$customID==$getUserVar[b4;$authorID]]
+$editButton[$customID;ㅤ;danger;yes;;]
+$else
+$editButton[$customID;;success;yes;$optOff[$randomText[🏆;🏅]]]
+$endif
+
+
+$setVar[Money;$sum[$getVar[Money;$authorID];$getUserVar[bearn;$authorID]];$authorID]
+$setUserVar[buser;;$authorID]
+$endif
+$endif

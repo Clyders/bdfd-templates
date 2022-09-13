@@ -1,0 +1,32 @@
+Replace `$image` in the main code with one of these.
+
+—————————
+
+Bar Chart:
+
+image[https://quickchart.io/chart?w=500&h=250&bkg=white&c={type:%27bar%27,data:{labels:[$url[encode;$var[Box]]\],datasets:[{label:['Leaderboard'\],data:[$var[Value]\],borderColor:['rgb(255,99,132)','rgb(255,159,64)','rgba(255,205,88,255)','rgba(103,197,197,255)','rgba(54,162,235,255)','rgba(153,102,255,255)','rgb(112,121,223)','rgb(32,161,184)','rgb(239,40,180)'\],backgroundColor:['rgba(255,99,132,0.5)','rgba(255,159,64,0.5)','rgba(255,230,171,255)','rgba(165,223,223,255)','rgba(155,208,245,255)','rgba(204,179,255,255)','rgba(112,121,223,0.5)','rgba(32,161,184,0.5)','rgba(239,40,180,0.4)'\],borderWidth:1,}\]}}]
+
+—————————
+
+Doughnut / Donut Chart:
+
+$image[https://quickchart.io/chart?w=500&h=250&bkg=white&c={type:'doughnut',data:{datasets:[{data:[$var[Value]\],borderColor:['rgb(255,99,132)','rgb(255,159,64)','rgba(255,205,88,255)','rgba(103,197,197,255)','rgba(54,162,235,255)','rgba(153,102,255,255)','rgb(112,121,223)','rgb(32,161,184)','rgb(239,40,180)'\],backgroundColor:['rgba(255,99,132,0.5)','rgba(255,159,64,0.5)','rgba(255,230,171,255)','rgba(165,223,223,255)','rgba(155,208,245,255)','rgba(204,179,255,255)','rgba(112,121,223,0.5)','rgba(32,161,184,0.5)','rgba(239,40,180,0.4)'\],label:'Dataset1',},\],labels:[$url[encode;$var[Box]]\],},options:{},}]
+
+—————————
+
+Polar Area Chart:
+
+image[https://quickchart.io/chart?w=500&h=250&bkg=white&c={type:'polarArea',data:{datasets:[{data:[$var[Value]\],borderColor:['rgb(255,99,132)','rgb(255,159,64)','rgba(255,205,88,255)','rgba(103,197,197,255)','rgba(54,162,235,255)','rgba(153,102,255,255)','rgb(112,121,223)','rgb(32,161,184)','rgb(239,40,180)'\],backgroundColor:['rgba(255,99,132,0.5)','rgba(255,159,64,0.5)','rgba(255,230,171,255)','rgba(165,223,223,255)','rgba(155,208,245,255)','rgba(204,179,255,255)','rgba(112,121,223,0.5)','rgba(32,161,184,0.5)','rgba(239,40,180,0.4)'\],label:'Leaderboard',},\],labels:[$url[encode;$var[Box]]\],},options:{legend:{position:'top',},},}]
+
+—————————
+
+Pie Chart:
+
+$image[https://quickchart.io/chart?w=500&h=250&bkg=white&c={type:'pie',data:{datasets:[{data:[$var[Value]\],borderColor:['rgb(255,99,132)','rgb(255,159,64)','rgba(255,205,88,255)','rgba(103,197,197,255)','rgba(54,162,235,255)','rgba(153,102,255,255)','rgb(112,121,223)','rgb(32,161,184)','rgb(239,40,180)'\],borderWidth:1,backgroundColor:['rgba(255,99,132,0.5)','rgba(255,159,64,0.5)','rgba(255,230,171,255)','rgba(165,223,223,255)','rgba(155,208,245,255)','rgba(204,179,255,255)','rgba(112,121,223,0.5)','rgba(32,161,184,0.5)','rgba(239,40,180,0.4)'\],label:'Dataset1',},\],labels:[$url[encode;$var[Box]]\],},}]
+
+—————————
+
+Line Chart: 
+
+image[https://quickchart.io/chart?w=500&h=250&bkg=white&c={type:'line',data:{labels:[$url[encode;$var[Box]]\],datasets:[{backgroundColor:'rgba(255,99,132,0.5)',borderColor:'rgb(255,99,132)',data:[$var[Value]\],label:'Leaderboard',fill:'start',},\],},options:{title:{text:'fill:start',display:false,},},}]
+
